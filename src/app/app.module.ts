@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -22,6 +22,8 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
 ];
+
+//enableProdMode();
 
 @NgModule({
   imports: [BrowserModule, RouterModule.forRoot(appRoutes)],

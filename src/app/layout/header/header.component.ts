@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+  moduleId: module.id.replace('jscode', 'app'),
   selector: 'header-com',
-  templateUrl: '../app/layout/header/header.component.html'
+  templateUrl: 'header.component.html'
 })
 
 export class HeaderComponent { }

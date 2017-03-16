@@ -13,86 +13,99 @@ var tscProject = ts.createProject('tsconfig.json');
 var SystemBuilder = require('systemjs-builder');
 
 // cleans the previous builds
-gulp.task('clean', function() {
-    return gulp.src(['dist', 'build', 'css/main.min.css', 'scripts'], { read: false })
-        .pipe(clean());
+gulp.task('clean', function () {
+    return gulp.src(['dist', 'src/jscode'], {
+            read: false
+        })
+        .pipe(clean())
 });
 
-gulp.task('vendor', () => {
+// Vendor jS and CSS *************************************************************************************
+gulp.task('vendor-js', () => {
     return gulp.src([
             'node_modules/core-js/client/shim.js',
             'node_modules/zone.js/dist/zone.js',
-            'node_modules/systemjs/dist/system.src.js'
+            'node_modules/systemjs/dist/system.src.js',
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/bootstrap/dist/js/bootstrap.min.js'
         ])
-        .pipe(concat('vendor.js'))
-        .pipe(rename({ suffix: '.min' }))
+        .pipe(concat('vendorjs.js'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
         .pipe(uglify())
-        .pipe(gulp.dest('scripts/'))
+        .pipe(gulp.dest('dist/src/scripts/'))
 });
 
+gulp.task('vendor-css', () => {
+    return gulp.src([
+            'node_modules/bootstrap/dist/css/bootstrap.min.css'
+        ])
+        .pipe(concat('vendorcss.css'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(cssMinify())
+        .pipe(gulp.dest('dist/src/css/'))
+});
+
+// Bundle jS and CSS *************************************************************************************
+
 gulp.task('tsc', () => {
-    return gulp.src('app/**/*.ts')
+    return gulp.src('src/app/**/*.ts')
         .pipe(tscProject())
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest('src/jscode'));
 });
 
 // loads all the required files based on systemjs.config.js
 // bundles them into bundle.js then minifying into bundle.min.js
-gulp.task('build-systemconfig', ['tsc'], () => {
+gulp.task('build-js', ['tsc'], () => {
     var builder = new SystemBuilder();
 
     return builder.loadConfig('systemjs.config.js')
-        .then(() => builder.buildStatic('app', 'scripts/bundle.js', {
-            production: true,
-            rollup: true
+        .then(() => builder.buildStatic('app', 'dist/src/scripts/bundle.js', {
+            minify: false, sourceMaps: true, encodeNames:false
         }))
-        .then(() => gulp.src('scripts/bundle.js')
-            .pipe(rename({ suffix: '.min' }))
-            .pipe(gulp.dest('scripts/'))
+        .then(() => gulp.src('dist/src/scripts/bundle.js')
+            .pipe(rename({
+                suffix: '.min'
+            }))
+            .pipe(gulp.dest('dist/src/scripts/'))
             .pipe(uglify())
-            .pipe(gulp.dest('scripts/')))
-        .then(() =>
-            gulp.src('build', { read: false })
+            .pipe(gulp.dest('dist/src/scripts/')))
+        .then(() => gulp.src(['dist/src/scripts/bundle.js'], {
+                read: false
+            })
             .pipe(clean()));
+
 });
 
-gulp.task('minify-js', ['build-systemconfig'], function() {
-    return gulp.src('scripts/bundle.js')
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('dist/scripts/'))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/scripts/'))
-});
-
-gulp.task('minify-css', function() {
-    return gulp.src('css/main.css')
-        .pipe(rename({ suffix: '.min' }))
+gulp.task('build-css', function () {
+    return gulp.src([
+            'src/css/main.css'
+        ])
+        .pipe(rename({
+            suffix: '.min'
+        }))
         .pipe(cssMinify())
-        .pipe(gulp.dest('css/'));
+        .pipe(gulp.dest('dist/src/css/'))
 });
 
-gulp.task('copy-html', function() {
-    return gulp.src('index.html')
+
+// Copy jS and CSS *************************************************************************************
+
+gulp.task('copy-html', function () {
+    return gulp.src('productionfiles/index.html')
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('copy-component-html', function() {
-    return gulp.src('app/**/*.html')
-        .pipe(gulp.dest('dist/app'));
+gulp.task('copy-component-html', function () {
+    return gulp.src('src/app/**/*.html')
+        .pipe(gulp.dest('dist/src/app'));
 });
 
-gulp.task('copy-css', ['minify-css'], function() {
-    return gulp.src('css/main.min.css')
-        .pipe(gulp.dest('dist/css/'));
-});
+// Default task *************************************************************************************
 
-gulp.task('copy-js', ['minify-js'], function() {
-    return gulp.src('scripts/**/*')
-        .pipe(gulp.dest('dist/scripts'));
-});
-
-// This task will call all the other task in sequence
-// Production build will be created in dist folder
-gulp.task('build', function(done) {
-    runSequence('clean', ['vendor', 'copy-html', 'copy-component-html', 'copy-css', 'copy-js', ], done);
+gulp.task('build-prod', function (done) {
+    runSequence(['vendor-js', 'vendor-css', 'build-js', 'build-css', 'copy-html', 'copy-component-html'], done);
 });
