@@ -5,4 +5,4 @@ app/**/*.js.map
 build
 dist
 scripts
-scr/jscode
+src/jscode
