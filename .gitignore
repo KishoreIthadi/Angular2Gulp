@@ -1,8 +1,8 @@
 node_modules
 app/**/*.js
 app/**/*.js.map
+app/**/*.d.ts
 *.log
-build
 dist
 scripts
 src/jscode

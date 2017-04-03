@@ -18,11 +18,13 @@
     "systemjs": "0.19.40",
     "core-js": "^2.4.1",
     "rxjs": "5.0.1",
-    "zone.js": "^0.7.4"
-  },
-  "devDependencies": {
+    "zone.js": "^0.7.4",
+    "typescript": "^2.0.10",
     "@types/node": "^7.0.8",
     "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {
     "concurrently": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
@@ -32,11 +34,12 @@
     "gulp-sourcemaps": "^2.4.0",
     "gulp-typescript": "^3.1.4",
     "gulp-uglify": "^2.0.1",
+    "gulp-inline-ng2-styles": "0.0.1",
+    "gulp-inline-ng2-template": "^4.0.0",
     "http-server": "^0.9.0",
-    "jquery": "^3.1.1",
     "lite-server": "^2.2.2",
     "run-sequence": "^1.2.2",
     "systemjs-builder": "^0.16.2",
-    "typescript": "^2.0.10"
+    "require-dir": "^0.3.1"
   }
 }

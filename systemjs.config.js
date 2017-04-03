@@ -2,8 +2,10 @@
  * System configuration for Angular samples
  * Adjust as necessary for your application needs.
  */
-(function(global) {
+(function (global) {
     System.config({
+        baseURL: "/",
+        defaultJSExtensions: true,
         paths: {
             // paths serve as alias
             'npm:': '/node_modules/'
