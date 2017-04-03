@@ -21,7 +21,7 @@ This application demonstrates two kinds of builds
 
 In this build, all the HTML files included using templateUrl and CSS files included using styleUrls will be copied into production build folder. The final build file structure is shown below. Here we have to maintain the same folder structure as in development mode.
 
-![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/Gulp-Prod.png?raw=true "Gulp-Build")
+![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/readmefiles/Gulp-Prod.png?raw=true "Gulp-Build")
 
 You can also combine all the component CSS files into a single bundle as specified in below gulp task.
 
@@ -43,7 +43,7 @@ gulp.task('bundle-component-css', () => {
 
 In this build, all the HTML pages included using templateUrl and CSS files included using styleUrls will be loaded into the JS file as templates. This way the application will load the HTML, CSS much faster and the total number of request made will be less. The final build file structure is shown below.
 
-![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/Gulp-Prod-Inline.png?raw=true "Gulp-Build-Inline")
+![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/readmefiles/Gulp-Prod-Inline.png?raw=true "Gulp-Build-Inline")
 
 
 ## Conclusion
