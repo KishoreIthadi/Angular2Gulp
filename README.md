@@ -19,6 +19,12 @@ This application demonstrates two kinds of builds
 
 ### 1.	build-prod
 
+```bash
+npm run build-prod
+```
+
+After running the above command, the production build will be placed in dist folder.
+
 In this build, all the HTML files included using templateUrl and CSS files included using styleUrls will be copied into production build folder. The final build file structure is shown below. Here we have to maintain the same folder structure as in development mode.
 
 ![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/readmefiles/Gulp-Prod.png?raw=true "Gulp-Build")
@@ -40,6 +46,11 @@ gulp.task('bundle-component-css', () => {
 
 ### 2.	build-prod-inline
 
+```bash
+npm run build-prod-inline
+```
+
+After running the above command, the production build will be placed in dist folder.
 
 In this build, all the HTML pages included using templateUrl and CSS files included using styleUrls will be loaded into the JS file as templates. This way the application will load the HTML, CSS much faster and the total number of request made will be less. The final build file structure is shown below.
 
