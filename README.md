@@ -25,11 +25,11 @@ npm run build-prod
 
 After running the above command, the production build will be placed in dist folder.
 
-In this build, all the HTML files included using templateUrl and CSS files included using styleUrls will be copied into production build folder. The final build file structure is shown below. Here we have to maintain the same folder structure as in development mode.
+In this build, all the HTML files included using templateUrl and CSS files included using styleUrls will be copied into production build folder(dist). The final build file structure is shown below. Here we have to maintain the same folder structure as in development.
 
 ![Alt text](https://github.com/KishoreIthadi/Angular2Gulp/blob/master/readmefiles/Gulp-Prod.png?raw=true "Gulp-Build")
 
-You can also combine all the component CSS files into a single bundle as specified in below gulp task.
+You can also combine all the component CSS files into a single bundle as shown in below gulp task.
 
 ```js
 gulp.task('bundle-component-css', () => {
