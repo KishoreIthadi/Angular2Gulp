@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "gulp clean",
     "build-prod": "gulp build-prod",
+    "build-prod-inline": "gulp build-prod-inline",
     "build:watch": "tsc -w",
     "start": "concurrently \"npm run build:watch\" \"lite-server\""
   },

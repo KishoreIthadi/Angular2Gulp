@@ -13,8 +13,14 @@ gulp.task('copy-component-html', function () {
         .pipe(gulp.dest('dist/src/app'));
 });
 
+gulp.task('copy-component-css', function () {
+    return gulp.src('src/app/**/*.css')
+        .pipe(gulp.dest('dist/src/app'));
+});
+
+
 // Default task *************************************************************************************
 
 gulp.task('build-prod', function (done) {
-    runSequence('clean', 'vendor-js', 'vendor-css', 'tsc', 'build-js', 'build-css', 'copy-html', 'copy-component-html', 'remove-jscode', done);
+    runSequence('clean', 'vendor-js', 'vendor-css', 'tsc', 'build-js', 'build-css', 'copy-html', 'copy-component-html', 'copy-component-css','remove-jscode', done);
 });
